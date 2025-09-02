@@ -5,6 +5,9 @@ let loadChart = null;
 let timeChart = null;
 
 const priorities = ['High', 'Medium', 'Low'];
+const API_BASE = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000' 
+  : window.location.origin;
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -58,7 +61,7 @@ function updateChartTheme(theme) {
 // Load all orders (CSV + customer orders combined)
 async function loadCustomerOrders() {
     try {
-        const response = await fetch('http://localhost:3002/api/all-orders');
+        const response = await fetch(`${API_BASE}/api/all-orders`);
         const allOrders = await response.json();
         
         // Include all orders (pending and assigned)
@@ -312,7 +315,7 @@ function balanceLoad() {
 // Update backend with order assignments
 async function updateBackendOrders(updatedOrders) {
     try {
-        await fetch('http://localhost:3002/api/update-orders', {
+        await fetch(`${API_BASE}/api/update-orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

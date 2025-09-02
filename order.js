@@ -2,6 +2,10 @@
 let selectedItems = [];
 let totalTime = 0;
 
+const API_BASE = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000' 
+  : window.location.origin;
+
 document.addEventListener('DOMContentLoaded', function() {
     loadItems();
     initializeOrderForm();
@@ -135,7 +139,7 @@ function initializeOrderForm() {
         };
         
         try {
-            const response = await fetch('http://localhost:3002/api/orders', {
+            const response = await fetch(`${API_BASE}/api/orders`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(order)
