@@ -1,9 +1,10 @@
-const express = require('express');
+const express = require("express");
 const fs = require('fs');
 const path = require('path');
 const { initializeDatabase, saveOrder, getAllOrders } = require('./database');
 const app = express();
-const PORT = 3002;
+
+const PORT = process.env.PORT || 3000;
 
 // Initialize database
 initializeDatabase();
@@ -218,6 +219,10 @@ app.post('/api/update-orders', (req, res) => {
     }
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello from Render!");
+});
+
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
